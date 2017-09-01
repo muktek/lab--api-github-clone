@@ -42,11 +42,11 @@ After loading data from the Github API, write at least the following information
 #### Part 2
 You will also need to include an `<input>` tag on your page that will allow users to search for a particular GitHub account. Once the user presses enter in the `<input>` tag, your app should change the hash, which will trigger a new request to the GitHub server, and display information for the corresponding user.
 
-### Demo
-####Functionality
+## Demo
+### Functionality
 ![demo gif](demos/roadmap-step6.gif)
 
-####Design
+### Design
 ![demo gif](demos/roadmap-step7.png)
 
 
