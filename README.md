@@ -43,7 +43,12 @@ After loading data from the Github API, write at least the following information
 You will also need to include an `<input>` tag on your page that will allow users to search for a particular GitHub account. Once the user presses enter in the `<input>` tag, your app should change the hash, which will trigger a new request to the GitHub server, and display information for the corresponding user.
 
 ### Demo
-![demo gif](demos/roadmap-step7.gif)
+####Functionality
+![demo gif](demos/roadmap-step6.gif)
+
+####Design
+![demo gif](demos/roadmap-step7.png)
+
 
 ## Setup Instructions
 
@@ -69,8 +74,10 @@ You will also need to include an `<input>` tag on your page that will allow user
 
 
 
-<hr/>
+---
+
 ### API Notes
+
 Docs: https://developer.github.com/v3/
 
 1. [Get an API key](https://github.com/settings/tokens/new)
@@ -113,4 +120,4 @@ Normally we would put our api key in a variable in `app.js`, but if we do that _
 
 7. After rendering the html to the page, put an event listener on the `<input>` tag in the navbar. It should listen for the enter-key and update the hash with whatever value is in the input -- if you've done steps 5 & 6, the user's data in the `<input>` should fetch + render to the page.  [Example of progress](demos/roadmap-step6.gif)
 
-8. Fine tune your styles. [Example of progress](demos/roadmap-step7.gif)
+8. Fine tune your styles. [Example of progress](demos/roadmap-step7.png)
