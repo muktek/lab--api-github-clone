@@ -43,6 +43,7 @@ After loading data from the Github API, write at least the following information
 You will also need to include an `<input>` tag on your page that will allow users to search for a particular GitHub account. Once the user presses enter in the `<input>` tag, your app should change the hash, which will trigger a new request to the GitHub server, and display information for the corresponding user.
 
 ## Demo
+
 ### Functionality
 ![demo gif](demos/roadmap-step6.gif)
 
@@ -52,8 +53,8 @@ You will also need to include an `<input>` tag on your page that will allow user
 
 ## Setup Instructions
 
-1. In `~/muktek/labs`,
-2. Clone **[webpack-simple-serve](https://github.com/t3tools/webpack-simple-server)** repo to a folder called `github-clone`:
+1. In `~/Documents/muktek/labs`,
+2. Clone **[webpack-simple-serve](https://github.com/t3tools/webpack-simple-server)** repo to a folder called `labs--github-clone`:
   ```
   git clone git@github.com:t3tools/webpack-simple-server.git
   ```
@@ -62,13 +63,25 @@ You will also need to include an `<input>` tag on your page that will allow user
   git remote remove origin
   hub create
   ```
-4. Install project dependencies
+4. Install general project dependencies
   ```
-  yarn
+  npm install
   ```
-5. Start the local server
+
+5. Install director (router library) and superagent (http request library) packages for this project in `src/scripts/app.js`
   ```
-  npm run go
+  npm install --save superagent director
+  ```
+
+6. Import superagent + director in `src/js/app.js`
+  ```js
+  import {Router} from 'director/build/director'
+  import repoColumnTemplate from './repoColumn'
+  import userColumnTemplate from './userColumn'
+  ```
+7. Start the local server
+  ```
+  npm run dev
   ```
 
 
@@ -102,22 +115,55 @@ Normally we would put our api key in a variable in `app.js`, but if we do that _
 
 
 ### Roadmap to Success
-1. Import jQuery, and successfully fetch user profile data + repo data for your github profile in your `app.js`
 
-2. In the promise-handler, render a minimal amount of data to the page. Note: you may want to use `$.when(...)` to resolve multiple promises. [Example of progress](./demos/roadmap-step2.png)
+##### Breaking Down the Problem
+You will need to fetch user data for a github (ex: t3patterson) and that user's repo data from the github api. In your application, you will need to render dynamic html strings to the DOM based on the data returned from the API.
 
-3. Create a simple layout in HTML + CSS for the layout per the mockup -- initially build it with static hard-coded HTML to make sure that the elements are mostly in place.
+After you can fetch + render data, you will need to set up the router. When the route contains the value of another user (ex: `#/oakes`, `#/jwo`), your application should fetch that user's profile information and repositories from the github API and render it to the page.
 
-4. Create a function that builds the html dynamically and returns an output string. To build the html-string, the function should accept 2 arguments, one argument for the user profile data, another argument for the repo data. The function should execute inside the promise-handler when the repo + user data has returned and it put the html-string inside `div id='app-container'`. [Example of progress](demos/roadmap-step4.png)
+Finally, you should create an input field in the nav bar that has an event listener that responds to the keyDown event and filters for the 'Enter' key, and changes the route with the value that
 
-5. Create the `controllerRouter()` function. The function should get the current value in the `window.location.hash`.
-  + If there is a value for a github user in the hash, it should execute the fetches for the profile data and repo data,
-  + if there is no value in the hash it should fetch + return the default github profile (i.e. your profile).
+##### Access the API
+1. Get your api key from github
 
-  When the data returns, do the same as the previous step (i.e. creating an html-string from the profile + repo data that you will put as innerHTML to `app-container`).
+2. In your browser, ensure that you can make successful queries for
 
-6. Add an eventListener that listens for the `hashchange` event type on the `window`. The callback function should be the `controllerRouter` -- the controllerRouter which will check what's in the hash, fetch the user profile/repo info, and render to the page. [Example of progress](demos/roadmap-step5.gif)
+ -  user data  
+ -  a user's repo data
 
-7. After rendering the html to the page, put an event listener on the `<input>` tag in the navbar. It should listen for the enter-key and update the hash with whatever value is in the input -- if you've done steps 5 & 6, the user's data in the `<input>` should fetch + render to the page.  [Example of progress](demos/roadmap-step6.gif)
+from the github API with your API Key
 
-8. Fine tune your styles. [Example of progress](demos/roadmap-step7.png)
+3. Access the data in `app.js`.
+ -  You will need to import superagent, and use `request.get(«url»)` to request the data form the api.
+
+ - You should console.log and inspect the data in your promise-handler callback function (
+   ```
+   request.get(...)
+    .then(function(serverRes){
+      // your code here
+    })
+   ```
+
+##### Create a Data Template
+
+1. Create a simple layout in HTML + CSS for the layout per the mockup initially build it with static hard-coded HTML to make sure that the elements are mostly in place.
+
+2. Create 2 functions that will return an html string with data from the api.
+  - One function will accept data from the users API and build the user profile HTML.
+  - The other function will accept data from the repos API and build the user repos. You will need to iterate over the data from the repos API since user repos are an array of objects.
+
+3. Fetch data from the api and pass the returned data to your template functions -- ensure that your template can render the fetched data.
+
+##### Build the router
+1. Initialize the router with 2 routes
+  - the home/default route
+  - and the user route
+
+2. The user route should be a dynamic route, and the dynamic value in the route should form part of the request url to the github user profile and user repos
+
+##### Build the 'search' feature
+1. Create an event-listener on the keydown event for the `<input>` element.
+
+2. The event listener should change the value in the route to see if the Enter/return key was pressed. You can see what key was pressed with the element's `[keycode](https://www.w3schools.com/jsref/event_key_keycode.asp)` property.
+
+3. With the director routing library, you can change the value in the url with the router instance's [`.setRoute(...)`(https://github.com/flatiron/director#setrouteroute)] method.
