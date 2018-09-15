@@ -1,4 +1,4 @@
-# Github Clone
+# Lab - Github Clone
 
 ## Objectives
 
