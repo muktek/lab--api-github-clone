@@ -66,15 +66,7 @@ Docs: https://developer.github.com/v3/
   - Click 'Generate Token', leave all options *unselected*
 2. Copy the access token
   - You won't be able to see it again from github!
-3. At the root of your project directory, create a `secrets.js` file. Inside of it, export your githubApiKey:
-  ```
-  export const githubApiKey = '«your github access token»'
-  ```
-4. In your `app.js`, import your `githubApiKey`
-  ```
-  import { githubApiKey } from '../../secrets.js'    
-  ```
-5. Make sure you can fetch a user from the API with your token
+3. Make sure you can fetch a user from the API with your token
   - https://api.github.com/users/muktekguest?access_token=«your-access-token»
 
 Why all of this? Github puts a rate limit on unauthenticated requests to their API at 60 per hour *per IP address*. As a class, we will be sharing the same IP address on campus, and will exceed this threshold quickly. Therefore, we need an api key for our application (i.e. an access token).
