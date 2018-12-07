@@ -6,17 +6,13 @@ After completing this assignment, you should be able to:
 
 * Demonstrate use of Promises and AJAX methods
 * Demonstrate ability to update DOM elements and their attributes/innerHTML via JS
-* Create an event listener for an input element.  
-* Utilize routing and a controllerRouter() function to simplify your navigation code.
-
+* Create an event listener for an input element.
 
 ## Deliverables
 
 * A repository on github
 * Site styles written in SCSS in the `src/`  and compiled to the dist
-* JS written in `src/` and compiled to the dist folder
-* Import/Export es6 modules
-* Client-side routing that listens to the 'hashchange' event and renders new data
+* JS written in `src/`
 * Successful AJAX requests from the Github API
 
 ## Details
@@ -50,42 +46,15 @@ You will also need to include an `<input>` tag on your page that will allow user
 ### Design
 ![demo gif](demos/roadmap-step7.png)
 
-
 ## Setup Instructions
 
-1. In `~/Documents/muktek/labs`,
-2. Clone **[webpack-simple-serve](https://github.com/t3tools/webpack-simple-server)** repo to a folder called `labs--github-clone`:
-  ```
-  git clone git@github.com:t3tools/webpack-simple-server.git
-  ```
-3. Remove the remote repo pointer and create your own remote.
-  ```
-  git remote remove origin
-  hub create
-  ```
-4. Install general project dependencies
-  ```
-  npm install
-  ```
+# (1) Go to your  muktek/assignments directory and create the `lab--api-github-clone` folder for this assignment
 
-5. Install director (router library) and superagent (http request library) packages for this project in `src/scripts/app.js`
-  ```
-  npm install --save superagent director
-  ```
-
-6. Import superagent + director in `src/js/app.js`
-  ```js
-  import {Router} from 'director/build/director'
-  import repoColumnTemplate from './repoColumn'
-  import userColumnTemplate from './userColumn'
-  ```
-7. Start the local server
-  ```
-  npm run dev
-  ```
-
-
-
+```sh
+cd ~/muktek/assignments
+mkdir lab--api-github-clone
+cd lab--api-github-clone
+```
 
 ---
 
@@ -106,17 +75,32 @@ Docs: https://developer.github.com/v3/
   import { githubApiKey } from '../../secrets.js'    
   ```
 5. Make sure you can fetch a user from the API with your token
-  - https://api.github.com/users/t3patterson?access_token=«your-access-token»
+  - https://api.github.com/users/muktekguest?access_token=«your-access-token»
 
 Why all of this? Github puts a rate limit on unauthenticated requests to their API at 60 per hour *per IP address*. As a class, we will be sharing the same IP address on campus, and will exceed this threshold quickly. Therefore, we need an api key for our application (i.e. an access token).
 
-Normally we would put our api key in a variable in `app.js`, but if we do that _Github will detect the key and delete it_ because it is usually very bad practice to push an access token to a public repository. The solution is to put our api key in a file we are hiding from version control (`secrets.js` in `.gitignore`). With these steps above, we can import the api key from another file locally without having the key getting invalidated when we push our code up to github.  
+Normally we would put our api key in a variable in `app.js`, but if we do that _Github will detect the key and delete it_ because it is usually very bad practice to push an access token to a public repository. The solution is to put our api key in a file we are hiding from version control (`secrets.js` in `.gitignore`). With these steps above, we can import the api key from another file locally without having the key getting invalidated when we push our code up to github.
 
+## Adventure Mode
+
+**Implement Routing**
+
+### Objectives
+
+* Utilize routing and a controllerRouter() function to simplify your navigation code.
+
+### Deliverables
+* Client-side routing that listens to the 'hashchange' event and renders new data
+
+## Setup Instructions
+
+*Use [director library](https://github.com/flatiron/director) to implement routing in your app.*
 
 
 ### Roadmap to Success
 
 ##### Breaking Down the Problem
+
 You will need to fetch user data for a github (ex: t3patterson) and that user's repo data from the github api. In your application, you will need to render dynamic html strings to the DOM based on the data returned from the API.
 
 After you can fetch + render data, you will need to set up the router. When the route contains the value of another user (ex: `#/oakes`, `#/jwo`), your application should fetch that user's profile information and repositories from the github API and render it to the page.
