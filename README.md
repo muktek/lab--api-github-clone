@@ -48,7 +48,7 @@ You will also need to include an `<input>` tag on your page that will allow user
 
 ## Setup Instructions
 
-# (1) Go to your  muktek/assignments directory and create the `lab--api-github-clone` folder for this assignment
+**(1) Go to your  muktek/assignments directory and create the `lab--api-github-clone` folder for this assignment**
 
 ```sh
 cd ~/muktek/assignments
