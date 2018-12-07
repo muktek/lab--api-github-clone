@@ -75,7 +75,7 @@ Normally we would put our api key in a variable in `app.js`, but if we do that _
 
 ## Adventure Mode
 
-**Implement Routing**
+### Implement Routing
 
 ### Objectives
 
